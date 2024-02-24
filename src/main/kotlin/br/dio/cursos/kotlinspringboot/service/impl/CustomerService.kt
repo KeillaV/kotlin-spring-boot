@@ -15,7 +15,7 @@ class CustomerService (
 
     override fun findById(id: Long): Customer = this.repository.findById(id).orElseThrow {
             throw RuntimeException("Id $id not found")
-        }
+    }
 
     override fun delete(id: Long) = this.repository.deleteById(id)
 }

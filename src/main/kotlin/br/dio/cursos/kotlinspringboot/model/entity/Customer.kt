@@ -1,6 +1,7 @@
 package br.dio.cursos.kotlinspringboot.model.entity
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 
 @Entity
 @Table(name = "CUSTOMER")
@@ -16,7 +17,7 @@ data class Customer (
     var lastName: String = "",
 
     @Column(nullable = false, unique = true)
-    val cpf: String = "",
+    var cpf: String = "",
 
     @Column(nullable = false, unique = true)
     var email: String = "",
@@ -33,4 +34,7 @@ data class Customer (
         cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST),
         mappedBy = "customer")
     var credits: List<Credit> = mutableListOf(),
+
+    @Column(nullable = false)
+    var income: BigDecimal = BigDecimal.ZERO
 )
