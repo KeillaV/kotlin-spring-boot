@@ -1,5 +1,6 @@
 package br.dio.cursos.kotlinspringboot.service.impl
 
+import br.dio.cursos.kotlinspringboot.exception.BusinessException
 import br.dio.cursos.kotlinspringboot.model.entity.Credit
 import br.dio.cursos.kotlinspringboot.model.repository.CreditRepository
 import br.dio.cursos.kotlinspringboot.service.ICreditService
@@ -25,6 +26,6 @@ class CreditService (
         val credit: Credit = this.creditRepository.findByCreditCode(creditCode)
             ?: throw RuntimeException("Credit code $creditCode not found!")
 
-        return if (credit.customer?.id == customerId) credit else throw RuntimeException("Invalid customer, contact administrator")
+        return if (credit.customer?.id == customerId) credit else throw BusinessException("Invalid customer, contact administrator")
     }
 }

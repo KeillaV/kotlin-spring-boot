@@ -4,6 +4,7 @@ import br.dio.cursos.kotlinspringboot.model.dto.CreditDataDTO
 import br.dio.cursos.kotlinspringboot.model.dto.CreditViewDTO
 import br.dio.cursos.kotlinspringboot.service.impl.CreditConverterService
 import br.dio.cursos.kotlinspringboot.service.impl.CreditService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,7 +24,7 @@ class CreditController (
 ){
 
     @PostMapping
-    fun save(@RequestBody dto: CreditDataDTO): ResponseEntity<CreditViewDTO> {
+    fun save(@RequestBody @Valid dto: CreditDataDTO): ResponseEntity<CreditViewDTO> {
         var entity = service.save(converterService.dtoToEntity(dto))
         return ResponseEntity(converterService.entityToDto(entity), HttpStatus.CREATED)
     }

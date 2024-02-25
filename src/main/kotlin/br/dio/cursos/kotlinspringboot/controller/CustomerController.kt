@@ -5,6 +5,7 @@ import br.dio.cursos.kotlinspringboot.model.dto.CustomerUpdateDTO
 import br.dio.cursos.kotlinspringboot.model.dto.CustomerViewDTO
 import br.dio.cursos.kotlinspringboot.service.impl.CustomerConverterService
 import br.dio.cursos.kotlinspringboot.service.impl.CustomerService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -25,7 +26,7 @@ class CustomerController (
 ) {
 
     @PostMapping
-    fun save(@RequestBody dto: CustomerDataDTO): ResponseEntity<CustomerViewDTO> {
+    fun save(@RequestBody @Valid dto: CustomerDataDTO): ResponseEntity<CustomerViewDTO> {
         val entity = service.save(converterService.dtoToEntity(dto))
         return ResponseEntity(converterService.entityToDto(entity), HttpStatus.CREATED)
     }
@@ -41,7 +42,7 @@ class CustomerController (
 
     @PatchMapping
     fun update(@RequestParam(value = "customerId") id: Long,
-               @RequestBody dto: CustomerUpdateDTO):  ResponseEntity<CustomerViewDTO> {
+               @RequestBody @Valid dto: CustomerUpdateDTO):  ResponseEntity<CustomerViewDTO> {
         val entity = service.findById(id)
         val updatedEntity = converterService.dtoToEntity(dto, entity)
         return ResponseEntity.ok(converterService.entityToDto(service.save(updatedEntity)))
