@@ -18,5 +18,8 @@ class CustomerService (
             throw BusinessException("Id $id not found")
     }
 
-    override fun delete(id: Long) = this.repository.deleteById(id)
+    override fun delete(id: Long) {
+        val entity = findById(id)
+        this.repository.delete(entity)
+    }
 }
