@@ -5,6 +5,7 @@ import br.dio.cursos.kotlinspringboot.model.entity.Credit
 import br.dio.cursos.kotlinspringboot.model.repository.CreditRepository
 import br.dio.cursos.kotlinspringboot.service.ICreditService
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.util.*
 
 @Service
@@ -14,6 +15,10 @@ class CreditService (
 ): ICreditService {
 
     override fun save(credit: Credit): Credit {
+        if (credit.dayFirstInstallment.isAfter(LocalDate.now().plusMonths(3))) {
+            throw BusinessException("The date for payment of the first installment should be no later than three months from now!")
+        }
+
         credit.apply {
             customer = customerService.findById(credit.customer?.id!!)
         }
