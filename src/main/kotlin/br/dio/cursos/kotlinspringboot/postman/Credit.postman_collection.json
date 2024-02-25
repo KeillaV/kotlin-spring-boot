@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "062c31a3-c1a1-4e35-88b0-d60a1bd9dfe2",
+		"name": "Credit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31967675"
+	},
+	"item": [
+		{
+			"name": "Save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creditValue\": 500.00,\r\n    \"dayFirstInstallment\": \"2024-02-24\",\r\n    \"numberOfInstallments\": 5,\r\n    \"customerId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/credits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All By Customer Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/credits?customerId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Credit Code and Customer Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/credits/customer/1?creditCode=a3b35ed8-9b88-436c-aa78-a7e939b0553b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits",
+						"customer",
+						"1"
+					],
+					"query": [
+						{
+							"key": "creditCode",
+							"value": "a3b35ed8-9b88-436c-aa78-a7e939b0553b"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
