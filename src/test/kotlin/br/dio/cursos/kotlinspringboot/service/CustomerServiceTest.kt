@@ -5,6 +5,7 @@ import br.dio.cursos.kotlinspringboot.model.entity.Address
 import br.dio.cursos.kotlinspringboot.model.entity.Customer
 import br.dio.cursos.kotlinspringboot.model.repository.CustomerRepository
 import br.dio.cursos.kotlinspringboot.service.impl.CustomerService
+import br.dio.cursos.kotlinspringboot.utils.DataBuilder
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -30,7 +31,7 @@ class CustomerServiceTest {
 
     @Test
     fun shouldCreateCustomer() {
-        val fakeCustomer = buildCustomer()
+        val fakeCustomer = DataBuilder.buildCustomer()
 
         // Equivalente ao when do Mockito:
         every { repository.save(any()) } returns fakeCustomer
@@ -44,7 +45,7 @@ class CustomerServiceTest {
     @Test
     fun shouldFindCustomer() {
         val fakeId = Random.nextLong()
-        val fakeCustomer = buildCustomer(fakeId)
+        val fakeCustomer = DataBuilder.buildCustomer()
 
         every { repository.findById(any()) } returns Optional.of(fakeCustomer)
 
@@ -69,7 +70,7 @@ class CustomerServiceTest {
     @Test
     fun shouldDeleteCustomer() {
         val fakeId = Random.nextLong()
-        val fakeCustomer = buildCustomer(fakeId)
+        val fakeCustomer = DataBuilder.buildCustomer()
 
         every { repository.findById(any()) } returns Optional.of(fakeCustomer)
         every { repository.delete(any()) } just runs
@@ -93,17 +94,4 @@ class CustomerServiceTest {
 
         verify(exactly = 0) { repository.delete(any()) }
     }
-
-    private fun buildCustomer(id: Long = 1L) = Customer(
-        firstName = "Keilla",
-        lastName = "Bezerra",
-        cpf = "86705758090",
-        email = "keilla@gmail.com",
-        password = "123456",
-        address = Address(
-            zipCode = "00000-0000",
-            street = "Rua das laranjas"
-        ), income = BigDecimal(2000.0),
-        id = id
-    )
 }
